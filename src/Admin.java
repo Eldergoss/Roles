@@ -8,14 +8,4 @@ public class Admin extends User{
         super(nombre , correo, contraseña , "ADMIN");//hereda los constructores de user
     }
 
-    public void agregarUsuario(ArrayList<String> usuarios, String nombre) {
-    usuarios.add(nombre);
-}
-
-    public void verUsuarios(ArrayList<String> usuarios) {
-        // recorrer e imprimir
-    }
-
-
-
 }
