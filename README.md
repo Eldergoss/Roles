@@ -1,39 +1,34 @@
-# Roles
+# Sistema de Gestión de Usuarios (Java)
 
-# Sistema de Roles en Java
+Proyecto desarrollado como práctica de Programación Orientada a Objetos (POO) en Java.
 
-## Descripción
-
-Este proyecto es una práctica de Programación Orientada a Objetos (POO) en Java.
-
-El objetivo es implementar un sistema básico de usuarios con diferentes niveles de permisos utilizando:
-
-- Herencia
-- Objetos
-- Clases
-- Constructores
-- ArrayList
-- Validación por roles
-
-No utiliza bases de datos ni librerías externas; todo se ejecuta en memoria.
+El objetivo es simular un sistema de administración de usuarios mediante distintos niveles de permisos utilizando herencia, encapsulamiento y composición.
 
 ---
 
-## Estructura del proyecto
+## Características
 
-```
-Main.java
-User.java
-Admin.java
-SuperAdmin.java
-Tablero.java
-```
+- Crear usuarios.
+- Agregar usuarios al sistema.
+- Eliminar usuarios.
+- Promover usuarios a administradores.
+- Visualizar usuarios registrados.
+- Visualizar administradores registrados.
+
+---
+
+## Arquitectura
 
 ### User
 
-Representa a un usuario del sistema.
+Clase base del sistema.
 
-Atributos:
+Responsabilidades:
+
+- Almacenar información del usuario.
+- Definir el rol del usuario.
+
+Atributos principales:
 
 - nombre
 - correo
@@ -46,7 +41,11 @@ Atributos:
 
 Hereda de `User`.
 
-Puede realizar acciones administrativas sobre la lista de usuarios.
+Responsabilidades:
+
+- Agregar usuarios al tablero.
+- Eliminar usuarios.
+- Consultar la lista de usuarios.
 
 ---
 
@@ -54,93 +53,86 @@ Puede realizar acciones administrativas sobre la lista de usuarios.
 
 Hereda de `User`.
 
-Tiene permisos superiores a un administrador.
+Responsabilidades:
+
+- Promover usuarios a administradores.
+- Consultar la lista de administradores.
+- Eliminar administradores (en desarrollo).
 
 ---
 
 ### Tablero
 
-Administra las listas del sistema.
+Clase encargada únicamente de almacenar la información del sistema.
 
-Contiene:
+Responsabilidades:
 
-- Lista de usuarios
-
-También valida el rol antes de ejecutar acciones administrativas.
-
----
-
-## Roles
-
-Actualmente existen tres roles.
-
-| Rol | Permisos |
-|------|----------|
-| USER | Solo representa un usuario |
-| ADMIN | Puede administrar usuarios |
-| SUPERADMIN | Puede realizar todas las acciones administrativas |
+- Mantener la lista de usuarios.
+- Mantener la lista de administradores.
+- Proporcionar métodos para agregar, eliminar y consultar dichas listas.
 
 ---
 
-## Conceptos utilizados
+## Modelo del proyecto
 
-- Programación Orientada a Objetos
-- Herencia
-- Encapsulamiento (en futuras versiones)
-- Constructores
-- Objetos
-- Métodos
-- Validación de permisos
-- ArrayList
-
----
-
-## Ejemplo de uso
-
-```java
-Tablero tablero = new Tablero();
-
-User juan = new User(
-    "Juan",
-    "juan@gmail.com",
-    "1234",
-    "USER"
-);
-
-Admin pedro = new Admin(
-    "Pedro",
-    "pedro@gmail.com",
-    "1234"
-);
-
-tablero.agregarUsuario(pedro, "Carlos");
+```
+                 User
+                   ▲
+          ┌────────┴────────┐
+          │                 │
+        Admin         SuperAdmin
+          │                 │
+          └────────┬────────┘
+                   │
+              interactúan con
+                   │
+                Tablero
+         ┌─────────┴─────────┐
+         │                   │
+     Usuarios             Administradores
 ```
 
 ---
 
-## Objetivos del proyecto
+## Conceptos aplicados
 
-- Comprender la herencia en Java.
-- Practicar la creación de objetos.
-- Implementar un sistema simple de roles.
-- Aprender a validar permisos mediante atributos.
-- Organizar el código utilizando clases con responsabilidades definidas.
-
----
-
-## Posibles mejoras
-
-- Login de usuarios.
-- Menús interactivos.
-- Validación de correo electrónico.
-- Cifrado de contraseñas.
-- Gestión de administradores.
-- Persistencia con archivos o SQLite.
-- Uso de `enum` para los roles.
-- Interfaces gráficas.
+- Programación Orientada a Objetos (POO)
+- Herencia
+- Encapsulamiento
+- Polimorfismo
+- Composición
+- Responsabilidad única (SRP)
+- Comunicación entre objetos
 
 ---
 
-## Autor
+## Flujo de trabajo
 
-Proyecto desarrollado con fines educativos para practicar Programación Orientada a Objetos en Java.
+1. Se crea un `Tablero`.
+2. Se crean los usuarios.
+3. Un `Admin` agrega usuarios al tablero.
+4. Un `SuperAdmin` promueve usuarios a administradores.
+5. El sistema mantiene listas separadas para usuarios y administradores.
+
+---
+
+## Tecnologías
+
+- Java
+- ArrayList
+- Programación Orientada a Objetos
+
+---
+
+## Estado del proyecto
+
+En desarrollo.
+
+### Próximas mejoras
+
+- Evitar usuarios duplicados.
+- Buscar usuarios por nombre.
+- Convertir listas en colecciones más robustas.
+- Implementar autenticación.
+- Mejorar el manejo de permisos.
+- Separar completamente la lógica del dominio.
