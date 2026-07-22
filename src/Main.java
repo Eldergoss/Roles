@@ -2,24 +2,46 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // Crear el tablero
-        Tablero tablero = new Tablero();
+        // ==========================
+        // Crear repositorios
+        // ==========================
+        UserRepository userRepository = new UserRepository();
+        AdminRepository adminRepository = new AdminRepository();
 
+        // ==========================
         // Crear usuarios
+        // ==========================
         User juan = new User("Juan", "juan@gmail.com", "1234", "USER");
+        User uriel = new User("Uriel", "uriel@gmail.com", "1234", "USER");
+
         Admin pedro = new Admin("Pedro", "pedro@gmail.com", "1234");
         SuperAdmin ana = new SuperAdmin("Ana", "ana@gmail.com", "1234");
 
-        // Pedro (Admin) agrega un usuario
-        tablero.agregarUsuario(pedro, "Carlos");
+        // ==========================
+        // Acciones del Admin
+        // ==========================
 
-        // Juan (User) intenta agregar un usuario
-        tablero.agregarUsuario(juan, "Luis");
+        pedro.agregarUsuario(userRepository, juan);
+        pedro.agregarUsuario(userRepository, uriel);
 
-        // Ana (SuperAdmin) agrega otro usuario
-        tablero.agregarUsuario(ana, "María");
+        System.out.println("\nLista de usuarios:");
+        pedro.verUsuarios(userRepository);
 
-        // Ver la lista de usuarios
-        tablero.verUsuarios(pedro);
+        // ==========================
+        // Acciones del SuperAdmin
+        // ==========================
+
+        Admin urielAdmin = ana.promoverAdmin(
+                adminRepository,
+                userRepository,
+                uriel
+        );
+
+        System.out.println("\nLista de administradores:");
+        ana.verAdmin(adminRepository);
+
+        System.out.println("\nLista de usuarios después de la promoción:");
+        pedro.verUsuarios(userRepository);
+
     }
 }
